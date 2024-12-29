@@ -43,8 +43,7 @@ struct AddItemView: View {
                         .fontDesign(.serif)
                         .foregroundStyle(.gray)
                         
-                  CategoryCheckBox()
-                        .padding(.horizontal, 7)
+                    CategoryCheckBox()
                         .padding(10)
                     CustomSection("Title", "Enter a title for your Objective", value: $title)
                     
@@ -159,48 +158,6 @@ struct AddItemView: View {
             }
             }
         }
-
-    /// Custom CheckBox
-    @ViewBuilder
-    func CategoryCheckBox() -> some View {
-        HStack(spacing: 10) {
-            ForEach(Category.allCases, id: \.rawValue) { category in
-                HStack(spacing: 5) {
-                    ZStack {
-                        Image(systemName: "circle")
-                            .font(.title3)
-                            .foregroundStyle(.blue)
-                        
-                        if self.category == category {
-                            Image(systemName: "circle.fill")
-                                .font(.caption)
-                                .foregroundStyle(.orange)
-                        }
-                    }
-                    Text(category.rawValue)
-                        .font(.caption)
-                        .fontDesign(.serif)
-                }
-                .contentShape(.rect)
-                .onTapGesture {
-                    self.category = category
-                }
-            }
-        }
-        .padding(.horizontal, 15)
-        .padding(.vertical, 12)
-        //        .hSpacing(.center)
-        .background(.gray.opacity(0.2), in: .rect(cornerRadius: 10))
-    }
-    
-    /// Number Formatter
-    var numberFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        
-        return formatter
-    }
 }
 
 #Preview {

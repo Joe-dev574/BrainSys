@@ -10,8 +10,30 @@ import SwiftData
 
 
 
+enum CategoryStatsType: Int, Identifiable {
+    case Objectives
+    case Notes
+    case Ideas
+    case myWiki
+    
+var id: Int {
+    self.rawValue
+}
 
+var title: String {
+    switch self {
+    case .Objectives:
+            return "Objectives"
+    case .Notes:
+            return "Notes"
+    case .Ideas:
+            return "Ideas"
+    case .myWiki:
+            return "myWiki"
+    }
+}
 
+}
 struct ItemListScreen: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
@@ -21,17 +43,18 @@ struct ItemListScreen: View {
     @State private var startDate: Date = .now.startOfMonth
     @State private var endDate: Date = .now.endOfMonth
     @State private var filter = ""
+    @State private var categoryStatsType: CategoryStatsType?
     @Namespace private var animation
     var body: some View {
         GeometryReader{
             /// For Animation Purpose
             let size = $0.size
             NavigationStack {
-                LogoView(_size: size)
-                CustomSegmentedControl()
-                    .fontDesign(.serif)
-                    .padding(.horizontal, 10)
+                HeaderView(_size: size)
                 ScrollView {
+                    CustomSegmentedControl()
+                        .fontDesign(.serif)
+                        .padding(.horizontal, 1)
                     LazyVStack(spacing: 10, pinnedViews: [.sectionHeaders]) {
                         CategoryFilterView(startDate: startDate, endDate:endDate, category: selectedCategory) { items in
                             ForEach(items) { item in
@@ -46,13 +69,13 @@ struct ItemListScreen: View {
                 }
             
                 .navigationDestination(item: $selectedItem) { item in
-                    ItemTaskView()
+                    ItemEditView(item: item)
                 }
             }
         }    .blur(radius: showAddItemSheet ? 8 : 0)
     }
     @ViewBuilder
-    func LogoView( _size: CGSize) -> some View {
+    func HeaderView( _size: CGSize) -> some View {
         HStack {
             Button{
                 print("profile")
@@ -64,39 +87,7 @@ struct ItemListScreen: View {
                     .foregroundColor(.blue).opacity(0.6)
             }
             Spacer()
-            ZStack{
-                Image(systemName: "memorychip")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .foregroundColor(.blue).opacity(0.3)
-                HStack {
-                    Text("Brain")
-                        .font(.callout)
-                        .fontDesign(.serif)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .offset(x: 13, y: 1)
-                    Text("System")
-                        .font(.callout)
-                        .fontDesign(.serif)
-                        .fontWeight(.heavy)
-                        .foregroundStyle(.primary)
-                        .offset(x: 5, y: 1)
-                    Text("Management")
-                        .font(.callout)
-                        .fontDesign(.serif)
-                        .fontWeight(.heavy)
-                        .foregroundStyle(.primary)
-                        .offset(x: -3, y: 1)
-                    Text("1.0")
-                        .font(.caption)
-                        .fontDesign(.serif)
-                        .fontWeight(.regular)
-                        .padding(.leading, 10)
-                        .foregroundColor(.blue)
-                        .offset(x: -15, y: -2)
-                }.offset(x: 5)
-            }
+            LogoView()
             Spacer()
             Button{
                 showAddItemSheet = true
@@ -135,12 +126,13 @@ struct ItemListScreen: View {
             HStack(spacing: 0) {
                 ForEach(Category.allCases, id: \.rawValue) { category in
                     Text(category.rawValue)
+                        .shadow(color: .gray, radius: 1)
                         .hSpacing()
                         .padding(.vertical, 10)
                         .background {
                             if category == selectedCategory {
                                 Capsule()
-                                    .fill(Color("LightGrey"))
+                                    .fill(Color("LightBlue"))
                                     .matchedGeometryEffect(id: "ACTIVETAB", in: animation)
                             }
                         }
@@ -178,3 +170,4 @@ struct ItemListScreen: View {
     ItemListScreen()
         .modelContainer(for: Item.self, inMemory: true)
 }
+
