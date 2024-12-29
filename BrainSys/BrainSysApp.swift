@@ -25,7 +25,7 @@ struct BrainSysApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ItemListScreen()
         }
         .modelContainer(sharedModelContainer)
     }
