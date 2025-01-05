@@ -14,6 +14,9 @@ import SwiftData
 struct ItemCardView: View {
     @Environment(\.modelContext) private var context
     let item: Item
+    
+    
+    
     var body: some View {
         NavigationStack{
             SwipeAction(cornerRadius: 10, direction: .trailing) {
@@ -49,7 +52,6 @@ struct ItemCardView: View {
                                 .padding(.leading, 12)
                                 .padding(.bottom, 12)
                             //MARK:  MAIN BODY OF CARD
-                            
                             HStack{
                                 //MARK:  ICON
                                 VStack(alignment: .leading){
@@ -86,8 +88,16 @@ struct ItemCardView: View {
                                             .font(.system(size: 14))
                                     }.padding(.top, 5)
                                         .padding(.bottom, 3)
+                                    
+                                    if let tags = item.tags {
+                                        ViewThatFits {
+                                            GenresStackView(tags: tags)
+                                            ScrollView(.horizontal, showsIndicators: false) {
+                                                GenresStackView(tags: tags)
+                                            }
+                                        }
+                                    }
                                 }
-                                
                             }
                         }
                     }

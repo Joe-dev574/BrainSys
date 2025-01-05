@@ -14,8 +14,8 @@ import SwiftData
 struct CategoryCheckBox: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @State private var category: Category = .Wiki
-   
+  //  @State private var category: Category = .Wiki
+    @Binding var category: Category
     
     var body: some View {
         HStack(spacing: 10) {
@@ -56,7 +56,4 @@ struct CategoryCheckBox: View {
         
         return formatter
     }
-}
-#Preview {
-    CategoryCheckBox()
 }

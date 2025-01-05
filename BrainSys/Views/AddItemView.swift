@@ -27,67 +27,92 @@ struct AddItemView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(spacing: 15) {
-                    //                    Text("Preview")
-                    //                        .font(.caption)
-                    //                        .foregroundStyle(.gray)
-                    //                        .hSpacing(.leading)
-                    //                    ItemCardView(item: .init(
-                    //                        title: title.isEmpty ? "Title" : title,
-                    //                        remarks: remarks.isEmpty ? "Remarks" : remarks,
-                    //                        dateAdded: dateAdded,
-                    //                        category: category.rawValue))
-                    //                    .padding(.horizontal, 7)
-                    
                     Text("Category")
                         .font(.callout)
                         .fontDesign(.serif)
                         .foregroundStyle(.gray)
-                        
-                    CategoryCheckBox()
-                        .padding(10)
-                    CustomSection("Title", "Enter a title for your Objective", value: $title)
                     
-                    CustomSection("Brief Description", "Briefly describe your objective", value: $remarks)
+                    CategoryCheckBox(category: $category)
+                        .padding(10)
+                    
+                    ///title
+                    Text("Item Title")
+                        .font(.system(size: 16))
+                        .fontDesign(.serif)
+                        .foregroundStyle(.gray)
+                    TextField("Item Title", text:$title)
+                        .font(.system(size: 16))
+                        .fontDesign(.serif)
+                        .padding()
+                        .foregroundStyle(.primary)
+                        .background(Color.gray.opacity(0.1))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray, lineWidth: 1))
+                        .padding(.bottom, 10)
+                    ///description
+                    Text("Brief Description")
+                        .font(.system(size: 16))
+                        .fontDesign(.serif)
+                        .foregroundStyle(.secondary)
+                    ZStack(alignment: .topLeading) {
+                        if remarks.isEmpty {
+                            Text("Brief Description...")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(3)
+                                .padding(10)
+                                .foregroundStyle(.secondary)
+                        }
+                        TextEditor(text: $remarks)
+                            .scrollContentBackground(.hidden)
+                            .background(Color.gray.opacity(0.1))
+                            .font(.system(size: 16))
+                            .fontDesign(.serif)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                    }
+                       
                 }
-            }
-            .padding(.horizontal, 7)
-            .fontDesign(.serif)
-            .background(.background)
-           
-            .toolbar{
-                ToolbarItem(placement: .topBarLeading, content: {
-                    Button {
-                        HapticManager.notification(type: .success)
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .fontDesign(.serif)
-                    }
-                    .buttonStyle(.automatic)
-                })
-                ToolbarItem(placement: .principal, content: {
-                    LogoView()
-                })
-                ToolbarItem(placement:.topBarTrailing, content: {
-                    Button {
-                        /// Saving Task
-                        save()
-                        HapticManager.notification(type: .success)
-                        dismiss()
-                    } label: {
-                        Text("Save")
-                            .fontDesign(.serif)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(title.isEmpty || remarks.isEmpty)
-                    .padding(.horizontal, 2)
-                })
+                .padding(.horizontal, 7)
+                .fontDesign(.serif)
+                .background(.background)
+                
+                .toolbar{
+                    ToolbarItem(placement: .topBarLeading, content: {
+                        Button {
+                            HapticManager.notification(type: .success)
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                                .fontDesign(.serif)
+                        }
+                        .buttonStyle(.automatic)
+                    })
+                    ToolbarItem(placement: .principal, content: {
+                        LogoView()
+                    })
+                    ToolbarItem(placement:.topBarTrailing, content: {
+                        Button {
+                            /// Saving Task
+                            save()
+                            HapticManager.notification(type: .success)
+                            dismiss()
+                        } label: {
+                            Text("Save")
+                                .fontDesign(.serif)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(title.isEmpty || remarks.isEmpty)
+                        .padding(.horizontal, 2)
+                    })
+                }
             }
         }
     }
-    
     //MARK: - Private Methods -
     private func save() {
         /// Saving Task

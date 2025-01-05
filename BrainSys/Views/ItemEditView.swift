@@ -38,7 +38,7 @@ struct ItemEditView: View {
         NavigationStack{
                 VStack{
                     ScrollView {
-                        DashControlView(item: item)
+                        DashControlView(item: item, status: $status)
                             .font(.system(size: 14))
                             .fontDesign(.serif)
                             .foregroundStyle(.gray)
@@ -47,8 +47,8 @@ struct ItemEditView: View {
                             .font(.system(size: 16))
                             .fontDesign(.serif)
                             .foregroundStyle(.gray)
-                            .padding(.bottom, 4)
-                        CategoryCheckBox()
+                            .padding(.bottom, 3)
+                        CategoryCheckBox(category: $category)
                         VStack(alignment: .center, spacing: 7){
                             ///title
                             Text("Item Title")
@@ -56,28 +56,38 @@ struct ItemEditView: View {
                                 .fontDesign(.serif)
                                 .foregroundStyle(.gray)
                             TextField("Item Title", text:$title)
-                                .font(.title3)
+                                .font(.system(size: 16))
                                 .fontDesign(.serif)
                                 .padding()
                                 .foregroundStyle(.primary)
-                                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.65), radius: 3)), in: .rect(cornerRadius: 10))
-                                .padding(.horizontal)
+                                .background(Color.gray.opacity(0.1))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.gray, lineWidth: 1))
                                 .padding(.bottom, 10)
                             ///description
                             Text("Brief Description")
                                 .font(.system(size: 16))
                                 .fontDesign(.serif)
                                 .foregroundStyle(.gray)
-                            TextEditor(text: $remarks)
-                                .background(.ultraThinMaterial.shadow(.drop(color: .black.opacity(0.65), radius: 3)), in: RoundedRectangle(cornerRadius: 4))
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(3)
-                                .foregroundStyle(.primary)
-                                .frame(minWidth: 300, maxWidth: .infinity, minHeight: 65, maxHeight: .infinity, alignment: .leading)
-                    
-                            /// Giving Some Space for tapping
-                             
-                         
+                            ZStack(alignment: .topLeading) {
+                                if remarks.isEmpty {
+                                    Text("Brief Description...")
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(3)
+                                        .foregroundStyle(.primary)
+                                }
+                                TextEditor(text: $remarks)
+                                    .scrollContentBackground(.hidden)
+                                    .background(Color.gray.opacity(0.1))
+                                    .font(.system(size: 16))
+                                    .fontDesign(.serif)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                            }
+                          
                                 
                             //MARK:  CUSTOM COLOR PICKER (OBJECTIVE COLOR)
                             
@@ -109,7 +119,6 @@ struct ItemEditView: View {
                         }  label: {
                             ZStack{
                                 RoundedRectangle(cornerRadius: 10).stroke(style: StrokeStyle(lineWidth: 1))
-                                
                                 Text("Update Objective")
                                     .font(.title3)
                                     .fontWeight(.bold)
@@ -136,7 +145,6 @@ struct ItemEditView: View {
                 || title != item.title
                 || remarks != item.remarks
                 || category != Category(rawValue: item.category)!
-                || status != Status(rawValue: item.status)!
                 || dateAdded != item.dateAdded
                 || dateStarted != item.dateStarted
                 || dateCompleted != item.dateCompleted
