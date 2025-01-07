@@ -91,9 +91,9 @@ struct ItemCardView: View {
                                     
                                     if let tags = item.tags {
                                         ViewThatFits {
-                                            GenresStackView(tags: tags)
+                                            TagsStackView(tags: tags)
                                             ScrollView(.horizontal, showsIndicators: false) {
-                                                GenresStackView(tags: tags)
+                                                TagsStackView(tags: tags)
                                             }
                                         }
                                     }

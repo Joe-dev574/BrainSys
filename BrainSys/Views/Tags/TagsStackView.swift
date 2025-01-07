@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GenresStackView: View {
+struct TagsStackView: View {
     var tags: [Tag]
     var body: some View {
         HStack {
@@ -16,13 +16,14 @@ struct GenresStackView: View {
                     .tint(tag.hexColor)
                     .offset(x: 7)
                 Text(tag.name)
+                    .fontDesign(.serif)
                     .font(.caption)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .background(RoundedRectangle(cornerRadius: 5).fill(tag.hexColor))
             }
         }.padding(4)
     }
 }
 #Preview {
-    GenresStackView(tags: [])
+    TagsStackView(tags: [])
 }

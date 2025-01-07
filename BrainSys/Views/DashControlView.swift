@@ -36,11 +36,11 @@ struct DashControlView: View {
                 }
                 .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 4)), in: .rect(cornerRadius: 10))
                 .sheet(isPresented: $showTags) {
-                    TagView()
+                    TagView(item: item)
                 }
                 //MARK:  UPDATE BUTTON
                 NavigationLink {
-                    //   NotesListView()
+                    NotesListView(item: item)
                 } label: {
                     let count = item.notes?.count ?? 0
                     Label("\(count) Notes", systemImage: "square.and.pencil").fontDesign(.serif)
