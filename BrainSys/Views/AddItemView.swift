@@ -150,32 +150,31 @@ struct AddItemView: View {
             HStack {
                 Spacer()
                 ZStack{
-                    
-                    Image(systemName: "scope")
+                    Image(systemName: "memorychip")
                         .resizable()
                         .frame(width: 45, height: 45)
                         .foregroundColor(.blue).opacity(0.3)
                     HStack {
-                        Text("Brain")
+                        Text("Mind")
                             .font(.callout)
                             .fontDesign(.serif)
                             .fontWeight(.bold)
-                        
-                            .foregroundColor(.blue)
-                            .offset(x: 13, y: 7)
-                        Text("Scope")
+                            .foregroundColor(.primary)
+                            .offset(x: 13, y: 1)
+                        Text("Map")
                             .font(.callout)
                             .fontDesign(.serif)
-                            .fontWeight(.heavy)
-                            .foregroundStyle(.primary)
-                            .offset(x: 5, y: 7)
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                            .offset(x: 5, y: 1)
+                      
                         Text("1.0")
                             .font(.caption)
                             .fontDesign(.serif)
                             .fontWeight(.regular)
                             .padding(.leading, 10)
                             .foregroundColor(.blue)
-                            .offset(x: -15, y: -2)
+                            .offset(x: -15, y: -5)
                     }.offset(x: 5)
                     
                 }

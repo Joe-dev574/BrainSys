@@ -8,10 +8,10 @@
 import SwiftUI
 
 enum Category: String, CaseIterable {
-    case Objective = "Objective"
-       case Note = "Notes"
-       case Idea = "Ideas"
-       case Wiki = "myWiki"
+        case Objectives = "Objectives"
+        case Planned = "Planned"
+        case Idea = "Ideas"
+    
    
 }
 

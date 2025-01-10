@@ -38,7 +38,7 @@ struct ItemListScreen: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var showAddItemSheet: Bool = false
-    @State private var selectedCategory: Category = .Note
+    @State private var selectedCategory: Category = .Planned
     @State private var selectedItem: Item?
     @State private var startDate: Date = .now.startOfMonth
     @State private var endDate: Date = .now.endOfMonth

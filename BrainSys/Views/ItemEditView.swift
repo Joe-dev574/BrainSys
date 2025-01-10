@@ -27,7 +27,7 @@ struct ItemEditView: View {
     @State private var dateCompleted: Date = .init()
     var editItem: Item?
     /// View Properties
-    @State private var category: Category = .Objective
+    @State private var category: Category = .Objectives
     
     @State private var showTags = false
     init(item: Item) {
@@ -87,71 +87,69 @@ struct ItemEditView: View {
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
                         }
-                        
-                        
-                        //MARK:  CUSTOM COLOR PICKER (OBJECTIVE COLOR)
-                        
                         if let tags = item.tags {
                             ViewThatFits {
-                                //         TargetTagsStackView(targetTags: targetTags)
+                                TagsStackView(tags: tags)
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    //            TargetTagsStackView(targetTags: targetTags)
+                                    TagsStackView(tags: tags)
                                 }
                             }
                             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(uiColor: .tertiarySystemFill), lineWidth: 2))
                         }
                     }
                     .padding()
-                    .navigationBarTitle(item.title)
-                    .navigationBarTitleDisplayMode(.inline)
+                    
+                    Divider()
                 }
-                
-                if changed {
-                    Button{
-                        HapticManager.notification(type: .success)
-                        item.status = status.rawValue
-                        item.title = title
-                        item.category = category.rawValue
-                        item.remarks = remarks
-                        item.dateAdded = dateAdded
-                        item.dateStarted = dateStarted
-                        item.dateCompleted = dateCompleted
-                        dismiss()
-                    }  label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 10).stroke(style: StrokeStyle(lineWidth: 1))
-                            Text("Update Objective")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.white)
+                .toolbar{
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        if changed {
+                            Button{
+                                HapticManager.notification(type: .success)
+                                item.status = status.rawValue
+                                item.title = title
+                                item.category = category.rawValue
+                                item.remarks = remarks
+                                item.dateAdded = dateAdded
+                                item.dateStarted = dateStarted
+                                item.dateCompleted = dateCompleted
+                                dismiss()
+                            }  label: {
+                                ZStack{
+                                    Text("Update")
+                                        .font(.title3)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
                         }
                     }
-                    .frame(width: 300, height: 55)
-                    .buttonStyle(.borderedProminent)
+                }
+                .padding(.top, 15)
+                .onAppear {
+                    title = item.title
+                    remarks = item.remarks
+                    dateAdded = item.dateAdded
+                    dateStarted = item.dateStarted
+                    dateCompleted = item.dateCompleted
+                    status = Status(rawValue: item.status)!
+                    category = Category(rawValue: item.category)!
+                    
                 }
             }
-            .padding(.top, 15)
-            .onAppear {
-                title = item.title
-                remarks = item.remarks
-                dateAdded = item.dateAdded
-                dateStarted = item.dateStarted
-                dateCompleted = item.dateCompleted
-                status = Status(rawValue: item.status)!
-                category = Category(rawValue: item.category)!
+            var changed: Bool {
+                status != Status(rawValue: item.status)!
+                || title != item.title
+                || remarks != item.remarks
+                || category != Category(rawValue: item.category)!
+                || dateAdded != item.dateAdded
+                || dateStarted != item.dateStarted
+                || dateCompleted != item.dateCompleted
                 
             }
         }
-        var changed: Bool {
-            status != Status(rawValue: item.status)!
-            || title != item.title
-            || remarks != item.remarks
-            || category != Category(rawValue: item.category)!
-            || dateAdded != item.dateAdded
-            || dateStarted != item.dateStarted
-            || dateCompleted != item.dateCompleted
-            
-        }
+        
     }
-    
 }

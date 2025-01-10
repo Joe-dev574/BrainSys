@@ -19,7 +19,7 @@ struct LogoView: View {
                     .font(.callout)
                     .fontDesign(.serif)
                     .fontWeight(.bold)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.primary)
                     .offset(x: 13, y: 1)
                 Text("Map")
                     .font(.callout)
@@ -34,7 +34,7 @@ struct LogoView: View {
                     .fontWeight(.regular)
                     .padding(.leading, 10)
                     .foregroundColor(.blue)
-                    .offset(x: -15, y: -2)
+                    .offset(x: -15, y: -5)
             }.offset(x: 5)
         }
     }

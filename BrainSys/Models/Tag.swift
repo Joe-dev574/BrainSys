@@ -20,7 +20,7 @@ class Tag {
     }
     
     var hexColor: Color {
-        Color(self.color)
+        Color(hex: self.color) ?? .oliveDrab
     }
 }
 

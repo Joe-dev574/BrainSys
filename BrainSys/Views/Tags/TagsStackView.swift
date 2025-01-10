@@ -12,14 +12,14 @@ struct TagsStackView: View {
     var body: some View {
         HStack {
             ForEach(tags.sorted(using: KeyPathComparator(\Tag.name))) { tag in
-                Image(systemName: "tag")
-                    .tint(tag.hexColor)
+                Image(systemName: "tag.fill")
+                    .foregroundStyle(tag.hexColor)
                     .offset(x: 7)
                 Text(tag.name)
                     .fontDesign(.serif)
                     .font(.caption)
                     .foregroundStyle(.primary)
-                    .background(RoundedRectangle(cornerRadius: 5).fill(tag.hexColor))
+                 
             }
         }.padding(4)
     }
