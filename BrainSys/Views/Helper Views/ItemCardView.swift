@@ -34,12 +34,12 @@ struct ItemCardView: View {
                                     .background(item.color.gradient, in: .rect(cornerRadius: 7))
                                     .contentShape(.rect)
                                     .fontDesign(.serif)
-                                
+                                    .font(.system(size: 12))
                             }
                         }
                             //MARK:  MAIN BODY OF CARD
-                            //MARK:  ICON
                             HStack{
+                                //MARK:  ICON
                                 Text("\(String(item.title.prefix(1)))")
                                     .font(.title)
                                     .fontDesign(.serif)
@@ -50,11 +50,10 @@ struct ItemCardView: View {
                                     .background(item.color.gradient, in: .circle)
                                     .padding(5)
                                 Text(item.title)
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 17))
                                     .fontDesign(.serif)
                                     .fontWeight(.semibold)
                                     .foregroundStyle(.primary)
-                                
                             }
                             VStack(alignment: .center){
                                 HStack{
@@ -63,7 +62,7 @@ struct ItemCardView: View {
                                     if !item.remarks.isEmpty {
                                         Text(item.remarks)
                                             .fontDesign(.serif)
-                                            .font(.system(size: 16))
+                                            .font(.system(size: 14))
                                             .foregroundStyle(.blue)
                                             .padding(.horizontal, 4)
                                             .lineLimit(3)
@@ -75,19 +74,19 @@ struct ItemCardView: View {
                                     Text("Date Created: ")
                                         .foregroundStyle(.gray)
                                         .fontDesign(.serif)
-                                        .font(.system(size: 14))
+                                        .font(.system(size: 10))
                                     Image(systemName: "calendar.badge.clock")
                                         .font(.footnote)
                                         .fontDesign(.serif)
                                         .foregroundStyle(.gray)
-                                        .font(.system(size: 14))
+                                        .font(.system(size: 10))
                                     Text(item.dateAdded.formatted(.dateTime))
                                         .fontDesign(.serif)
                                         .foregroundColor(.secondary)
-                                        .font(.system(size: 14))
-                                }.padding(.top, 5)
-                                    .padding(.bottom, 3)
-                                
+                                        .font(.system(size: 10))
+                                }
+                                .padding(.top, 5)
+                                .padding(.bottom, 3)
                                 if let tags = item.tags {
                                     ViewThatFits {
                                         TagsStackView(tags: tags)
@@ -99,7 +98,6 @@ struct ItemCardView: View {
                             }
                             .padding(.horizontal, 10)
                         }
-                
                 }.padding( 2)
             } actions: {
                 Action(tint: .red, icon: "trash", action: {

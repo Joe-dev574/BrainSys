@@ -12,9 +12,8 @@ import SwiftData
 
 enum CategoryStatsType: Int, Identifiable {
     case Objectives
-    case Notes
     case Ideas
-    case myWiki
+    case Scheduled
     
 var id: Int {
     self.rawValue
@@ -24,12 +23,10 @@ var title: String {
     switch self {
     case .Objectives:
             return "Objectives"
-    case .Notes:
-            return "Notes"
     case .Ideas:
             return "Ideas"
-    case .myWiki:
-            return "myWiki"
+    case .Scheduled:
+            return "Scheduled"
     }
 }
 
@@ -38,7 +35,7 @@ struct ItemListScreen: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var showAddItemSheet: Bool = false
-    @State private var selectedCategory: Category = .Planned
+    @State private var selectedCategory: Category = .Scheduled
     @State private var selectedItem: Item?
     @State private var startDate: Date = .now.startOfMonth
     @State private var endDate: Date = .now.endOfMonth

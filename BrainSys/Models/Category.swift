@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Category: String, CaseIterable {
         case Objectives = "Objectives"
-        case Planned = "Planned"
+        case Scheduled = "Scheduled"
         case Idea = "Ideas"
     
    

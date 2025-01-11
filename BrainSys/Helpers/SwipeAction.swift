@@ -59,7 +59,7 @@ struct SwipeAction<Content: View>: View {
                 .scrollTargetLayout()
                 .visualEffect { content, geometryProxy in
                     content
-                        .offset(x: scrollOffset(geometryProxy))
+               //         .offset(x: scrollOffset(geometryProxy))
                 }
             }
             .scrollIndicators(.hidden)
